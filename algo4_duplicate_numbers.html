@@ -1,0 +1,20 @@
+<script>
+	var nums = [];
+	var count=[];
+	var n =0;
+ 	for (var i = 0; i<100; i++) {
+ 			nums[i]= Math.floor(Math.random()*100 +1); 
+      count[i]=0;
+ 	}
+ 	console.log(nums);
+ 	for (var j =0; j<100; j++) {
+ 		if(nums.indexOf(nums[j]) >=0)	{
+ 		  var k = nums[j];
+ 			count[k]= count[k]+1;
+ 		}
+ 	}
+ 	for(var i = 0; i<100; i++) {
+ 		console.log(nums[i]," : ",count[nums[i]]," times");
+ 	}
+
+</script>

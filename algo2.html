@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head> </head>
+<body>	
+<script>
+  function setAttr(el,attr) {
+    for(i in attr) {
+      el.setAttribute(i,attr[i]);
+    }
+  }
+	var label1 = document.body.appendChild(document.createElement("label"));
+	label1.innerHTML = "User Name";
+	var elem = label1.appendChild(document.createElement("input"));
+	setAttr(elem,{"type" :"text","id":"uname"});
+	var label1 = document.body.appendChild(document.createElement("label"));
+	label1.innerHTML = "Age";
+	var elem = label1.appendChild(document.createElement("input"));
+	setAttr(elem,{"type" :"text","id":"age"});
+	var label1 = document.body.appendChild(document.createElement("label"));
+	label1.innerHTML = "Location";
+	var elem = label1.appendChild(document.createElement("input"));
+	setAttr(elem,{"type" :"text","id":"loc"});
+  var elem = document.body.appendChild(document.createElement("input"));
+  setAttr(elem,{"type" :"button","id":"submit","value":"submit"});
+	var elem = document.body.appendChild(document.createElement("input"));
+	setAttr(elem,{"type" :"button","id":"output","value":"show me all outputs"});
+	var elem = document.body.appendChild(document.createElement("div"));
+	elem.setAttribute("id","div");
+	var arr =[];
+
+	    // event listener on submit button 
+	document.getElementById("submit").addEventListener("click",function() {
+		var flag=1;
+		var username = document.getElementById("uname").value;
+		document.getElementById("uname").value = "";
+		for(var j =0 ;j< arr.length;j++) {
+			if(username == arr[j].username ) {
+				alert("enter a unique name");
+			  var flag=0;
+				break;
+			}
+		}
+    if(flag) {
+      var age =Number(document.getElementById("age").value);
+      if(isNaN(age)) {
+      	 alert("age cannt be non numeric");
+      } else {
+      	document.getElementById("age").value ="";
+		  	var loc = document.getElementById("loc").value;
+		  	document.getElementById("loc").value="";
+    		console.log(loc);
+		  	var obj = {
+     			"username":username,
+    			"age":age,
+     			"loc":loc
+					}
+					alert("you submitted : "+"User Name :"+username+"  Age :"+age +"  Location:"+loc);
+		  		localStorage.setItem(localStorage.length +1,JSON.stringify(obj));
+		  		arr.push(obj);
+					console.log(arr);
+			}
+		}
+	});
+    // event listenser on show all results  
+	document.getElementById("output").addEventListener("click",function() {
+    for(var i = 1; i<=localStorage.length;i++){
+			var j= i-1;
+			arr[j]=JSON.parse(localStorage.getItem(i));
+		} 
+		//function to calculate minimum age
+		function minAge(arr) {
+			var min= arr[0].age;
+			for(var i =0; i< arr.length -1 ; i++) {
+				j= i+1;
+				var y =Number(arr[j].age);
+				if(min >y) {
+			    min = y;
+				}
+		  }
+	  return min;
+	  }
+     //function to calculate maximum age
+		function maxAge(arr) {
+	   	var  max = arr[0].age;
+			for(var i =0; i< arr.length -1 ; i++) {
+				j= i+1;
+	    	var y = Number(arr[j].age);
+				if (max< y) max = y;
+	    }
+	    return max;
+	  }
+	  // function to calculate average age
+    function avgAge(arr) {
+			var sum =0;
+			for(var i =0 ; i < arr.length ;i++) {
+	 			sum  = sum + Number(arr[i].age );
+			}
+			var avg = sum /arr.length;
+			return avg;
+		}
+		//function to arrange users name in ascending order 
+		function ascendUserName(arr){
+			var usernameArray =[];
+    	for(var i =0; i< arr.length ; i++) {
+    	  usernameArray.push(arr[i].username);
+    	}
+  		for(var i =0; i< arr.length-1 ; i++) {
+ 				for (var j= 0; j< arr.length -1 -i ;j++) {
+ 			  	k= j+1;
+ 					if((usernameArray[j] > usernameArray[k])) { 
+ 						temp = usernameArray[k];
+ 		 				usernameArray[k] = usernameArray[j];
+ 		 				usernameArray[j] = temp;
+ 		 				}
+ 			  	}
+				}
+
+		return usernameArray;
+		}
+  // function to arrage users name in descending order
+	function descendUserName(arr) {
+		var usernameArray =[];
+    	for(var i =0; i< arr.length ; i++) {
+    		usernameArray.push(arr[i].username);
+    	}
+  		for(var i =0; i< arr.length-1 ; i++) {
+ 				for (var j= 0; j< arr.length -1 -i ;j++) {
+ 					k= j+1;
+ 					if((usernameArray[j] < usernameArray[k])) { 
+ 			 			temp = usernameArray[k];
+ 		   			usernameArray[k] = usernameArray[j];
+ 		    		usernameArray[j] = temp;
+ 					}
+ 				}
+			}
+			return usernameArray;
+	}
+
+  // function to return user's age in ascending order
+	function ascendingAge(arr) {
+		var ageArray =[];
+ 			for(var i =0; i< arr.length ; i++) {
+    		ageArray.push(Number(arr[i].age));
+  		}
+			for(var i =0; i< arr.length ; i++) {
+ 				for (var j= 0; j< arr.length -i ;j++) {
+ 					k= j+1;
+ 					if(ageArray[j] >ageArray[k]) {
+ 		 				temp = ageArray[k];
+ 		 				ageArray[k] = ageArray[j];
+ 		 				ageArray[j] = temp;
+ 					}
+ 				}
+			}
+	return ageArray;
+	}
+  // function to arrange user's age in descending order
+	function descendingAge(arr) {
+		var ageArray =[];
+ 		for(var i =0; i< arr.length ; i++) {
+    	ageArray.push(Number(arr[i].age));
+  	}
+		for(var i =0; i< arr.length ; i++) {
+ 			for (var j= 0; j< arr.length -i ;j++) {
+ 				k= j+1;
+ 				if(ageArray[j] <=ageArray[k]) { 
+ 					temp = ageArray[k];
+ 		 			ageArray[k] = ageArray[j];
+ 		 			ageArray[j] = temp;
+ 				}
+ 			}
+		}
+		return ageArray;
+	}
+
+ var ans = document.getElementById("div");
+ ans.innerHTML ="Min age :"+ minAge(arr)+"</br>Max age :"+maxAge(arr)+"</br>average age"+avgAge(arr)+"</br>Age in Ascending order :"+ascendingAge(arr)+"</br>age in descending order:"+descendingAge(arr)+"</br>username in ascending order :"+ascendUserName(arr)+"</br>username in decending order :"+descendUserName(arr) ;
+});
+</script>
+
+
+</body>
+</html>

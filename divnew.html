@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="div.css">
+</head>
+<body >
+<script>
+    function setAttr(el,attr) {
+            for(i in attr) {
+                el.setAttribute(i,attr[i]);
+            }
+    }
+    var div = document.createElement("div");
+    var controls = document.body.appendChild(div);
+    var label= controls.appendChild(document.createElement("label"));
+    label.innerHTML ="time interval";
+    var timeInterval = label.appendChild(document.createElement("input"));
+     setAttr(timeInterval,{"type":"text","id":"time","value":"1000"});
+   
+    var moveRect =controls.appendChild(document.createElement("input"));
+     setAttr(moveRect,{"type":"button","id":"move","value":"move"});
+  
+    var stopRect =controls.appendChild(document.createElement("input"));
+     setAttr(stopRect,{"type":"button","id":"stop","value":"stop"});
+  
+    var label1= controls.appendChild(document.createElement("label"));
+    label1.innerHTML ="right";
+    var radio1 = label1.appendChild(document.createElement("input"));
+    setAttr(radio1,{"type":"radio","name":"direction","id":"right","value":"left to right","checked":"checked"});
+    var label2= controls.appendChild(document.createElement("label"));
+    label2.innerHTML ="left";
+    var radio2 = label2.appendChild(document.createElement("input"));
+    setAttr(radio2,{"type":"radio","name":"direction","id":"left","value":"right to left"});
+    var div = document.createElement("div");
+    var container = document.body.appendChild(div);
+    container.setAttribute("class","container");
+    var div2 = document.createElement("div");
+    var rect= container.appendChild(div2);
+    setAttr(rect,{"class":"block","id":"mydiv"});
+    var id ;
+    var left =0;
+    function move() {
+      var cancelBubble = true;
+      var element = document.getElementById("mydiv");
+      var   n = document.getElementById("time").value;
+      if (left < 500 ) {
+        function frame() {
+          if (left >= 470 )  // check finish condition
+            clearInterval(id);
+
+        left =left+30;  // update parameters 
+        element.style.left = left + 'px' ; // show frame 
+      
+        }
+        id = setInterval(frame,n );
+      }
+    }
+    function move1() {
+      var   n = document.getElementById("time").value;
+      var cancelBubble = true;
+      var element = document.getElementById("mydiv");
+      if(left> 30) {
+        function frame() {
+         if (left <= 30 )  
+            clearInterval(id);
+        
+        left =left-30;  // update parameters 
+        element.style.left = left + 'px' // show frame 
+        }
+       id = setInterval(frame, n);
+      }
+    }
+
+   document.onclick = function(event) {
+     if(document.getElementById("right").checked) {  
+        if(event.target.id == "move") { 
+          clearInterval(id);
+          move();
+        } else if(event.target.id == "stop") {
+         clearInterval(id);
+        } 
+     } else if(document.getElementById("left").checked) {  
+         if(event.target.id == "move") { 
+            clearInterval(id);
+            move1();
+         } else if(event.target.id == "stop") {
+          clearInterval(id);
+         } 
+     }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.container{position:relative;
+
+	width:530px;
+	height:100px;
+	border:solid black 1px;
+	padding:5px;
+	
+}
+.container .block
+{
+	position:absolute;
+	background-color:blue;
+	width:30px;
+	height:20px;
+	adding-top:10px;
+	text-align:center;
+	color:#fff;
+	font-size:10px;
+	white-space:nowrap;
+	margin:5px;
+}
+input 
+{
+	margin:20px;
+}
